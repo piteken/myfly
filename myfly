@@ -30,15 +30,15 @@ check_running(){
 do_start(){
     check_running
     if [ $? -eq 0 ]; then
-        echo "$NAME (pid $PID)ÕıÔÚÔËĞĞ"
+        echo "$NAME (pid $PID)æ­£åœ¨è¿è¡Œ"
         exit 0
     else
         $DAEMON -c $CONF -d start
         RETVAL=$?
         if [ $RETVAL -eq 0 ]; then
-            echo "$NAMEÆô¶¯³É¹¦"
+            echo "$NAMEå¯åŠ¨æˆåŠŸ"
         else
-            echo "$NAMEÆô¶¯Ê§°Ü£¬Çë¼ì²éÈÕÖ¾¶¨Î»ÎÊÌâ"
+            echo "$NAMEå¯åŠ¨å¤±è´¥ï¼Œè¯·æ£€æŸ¥æ—¥å¿—å®šä½é—®é¢˜"
         fi
     fi
 }
@@ -49,12 +49,12 @@ do_stop(){
         $DAEMON -c $CONF -d stop
         RETVAL=$?
         if [ $RETVAL -eq 0 ]; then
-            echo "$NAMEÍ£Ö¹³É¹¦"
+            echo "$NAMEåœæ­¢æˆåŠŸ"
         else
-            echo "$NAMEÍ£Ö¹Ê§°Ü£¬Çë¼ì²éÈÕÖ¾¶¨Î»ÎÊÌâ"
+            echo "$NAMEåœæ­¢å¤±è´¥ï¼Œè¯·æ£€æŸ¥æ—¥å¿—å®šä½é—®é¢˜"
         fi
     else
-        echo "$NAMEÒÑ¾­Í£Ö¹ÁË"
+        echo "$NAMEå·²ç»åœæ­¢äº†"
         RETVAL=1
     fi
 }
@@ -62,9 +62,9 @@ do_stop(){
 do_status(){
     check_running
     if [ $? -eq 0 ]; then
-        echo "$NAME (pid $PID)ÕıÔÚÔËĞĞ"
+        echo "$NAME (pid $PID)æ­£åœ¨è¿è¡Œ"
     else
-        echo "$NAMEÎ´ÔËĞĞ¡£¿ÉÒÔÖ´ĞĞ/etc/init.d/ss-fly startÆô¶¯ss"
+        echo "$NAMEæœªè¿è¡Œã€‚å¯ä»¥æ‰§è¡Œ/etc/init.d/ss-fly startå¯åŠ¨ss"
         RETVAL=1
     fi
 }
@@ -80,7 +80,7 @@ case "$1" in
     do_$1
     ;;
     *)
-    echo "Ê¹ÓÃ·½·¨: $0 { start | stop | restart | status }"
+    echo "ä½¿ç”¨æ–¹æ³•: $0 { start | stop | restart | status }"
     RETVAL=1
     ;;
 esac

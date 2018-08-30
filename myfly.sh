@@ -17,19 +17,19 @@ kernel_ubuntu_url="http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.10.2/linux-i
 kernel_ubuntu_file="linux-image-4.10.2-041002-generic_4.10.2-041002.201703120131_amd64.deb"
 
 usage () {
-        cat $fly_dir/sshelp
+        cat $fly_dir/help
 }
 
 DIR=`pwd`
 
 wrong_para_prompt() {
-    echo -e "[${red}´íÎó${plain}] ²ÎÊıÊäÈë´íÎó!$1"
+    echo -e "[${red}é”™è¯¯${plain}] å‚æ•°è¾“å…¥é”™è¯¯!$1"
 }
 
 install_ss() {
         if [[ "$#" -lt 1 ]]
         then
-          wrong_para_prompt "ÇëÊäÈëÖÁÉÙÒ»¸ö²ÎÊı×÷ÎªÃÜÂë"
+          wrong_para_prompt "è¯·è¾“å…¥è‡³å°‘ä¸€ä¸ªå‚æ•°ä½œä¸ºå¯†ç "
           return 1
         fi
         password=$1
@@ -39,7 +39,7 @@ install_ss() {
         fi
         if [[ $port -le 0 || $port -gt 65535 ]]
         then
-          wrong_para_prompt "¶Ë¿ÚºÅÊäÈë¸ñÊ½´íÎó£¬¶Ë¿ÚºÅÓ¦Îª1µ½65535"
+          wrong_para_prompt "ç«¯å£å·è¾“å…¥æ ¼å¼é”™è¯¯ï¼Œç«¯å£å·åº”ä¸º1åˆ°65535"
           exit 1
         fi
         check_os
@@ -59,7 +59,7 @@ install_ss() {
 }
 
 uninstall_ss() {
-        read -p "ÄãÈ·¶¨ÒªĞ¶ÔØss£¿(y/n) :" option
+        read -p "ä½ ç¡®å®šè¦å¸è½½ssï¼Ÿ(y/n) :" option
         [ -z ${option} ] && option="n"
         if [ "${option}" == "y" ] || [ "${option}" == "Y" ]
         then
@@ -81,28 +81,28 @@ uninstall_ss() {
                 if [ -f /usr/local/shadowsocks_install.log ]; then
                         cat /usr/local/shadowsocks_install.log | xargs rm -rf
                 fi
-                echo "ssĞ¶ÔØ³É¹¦£¡"
+                echo "sså¸è½½æˆåŠŸï¼"
         else
                 echo
-                echo "Ğ¶ÔØÈ¡Ïû"
+                echo "å¸è½½å–æ¶ˆ"
         fi
 }
 
 install_bbr() {
-	[[ -d "/proc/vz" ]] && echo -e "[${red}´íÎó${plain}] ´ËÏµÍ³ÊÇOpenVZ¼Ü¹¹µÄ£¬²»Ö§³Ö¿ªÆôBBR¡£" && exit 1
+	[[ -d "/proc/vz" ]] && echo -e "[${red}é”™è¯¯${plain}] æ­¤ç³»ç»Ÿæ˜¯OpenVZæ¶æ„çš„ï¼Œä¸æ”¯æŒå¼€å¯BBRã€‚" && exit 1
 	check_os
 	check_bbr_status
 	if [ $? -eq 0 ]
 	then
-		echo -e "[${green}ÌáÊ¾${plain}] TCP BBR¼ÓËÙ¿ªÆô³É¹¦¡£"
+		echo -e "[${green}æç¤º${plain}] TCP BBRåŠ é€Ÿå¼€å¯æˆåŠŸã€‚"
 		exit 0
 	fi
 	check_kernel_version
 	if [ $? -eq 0 ]
 	then
-		echo -e "[${green}ÌáÊ¾${plain}] ´ËÏµÍ³°æ±¾¸ßÓÚ4.9£¬Ö±½Ó¿ªÆôBBR¼ÓËÙ¡£"
+		echo -e "[${green}æç¤º${plain}] æ­¤ç³»ç»Ÿç‰ˆæœ¬é«˜äº4.9ï¼Œç›´æ¥å¼€å¯BBRåŠ é€Ÿã€‚"
 		sysctl_config
-		echo -e "[${green}ÌáÊ¾${plain}] TCP BBR¼ÓËÙ¿ªÆô³É¹¦"
+		echo -e "[${green}æç¤º${plain}] TCP BBRåŠ é€Ÿå¼€å¯æˆåŠŸ"
 		exit 0
 	fi
 	    
@@ -110,16 +110,16 @@ install_bbr() {
         	install_elrepo
         	yum --enablerepo=elrepo-kernel -y install kernel-ml kernel-ml-devel
         	if [ $? -ne 0 ]; then
-            		echo -e "[${red}´íÎó${plain}] ÄÚºË°²×°Ê§°Ü£¬Çë¼ì²é¡£"
+            		echo -e "[${red}é”™è¯¯${plain}] å†…æ ¸å®‰è£…å¤±è´¥ï¼Œè¯·æ£€æŸ¥ã€‚"
             		exit 1
         	fi
     	elif [[ x"${os}" == x"debian" || x"${os}" == x"ubuntu" ]]; then
         	[[ ! -e "/usr/bin/wget" ]] && apt-get -y update && apt-get -y install wget
         	#get_latest_version
-        	#[ $? -ne 0 ] && echo -e "[${red}´íÎó${plain}] »ñÈ¡×îĞÂÄÚºË°æ±¾Ê§°Ü£¬Çë¼ì²éÍøÂç" && exit 1
+        	#[ $? -ne 0 ] && echo -e "[${red}é”™è¯¯${plain}] è·å–æœ€æ–°å†…æ ¸ç‰ˆæœ¬å¤±è´¥ï¼Œè¯·æ£€æŸ¥ç½‘ç»œ" && exit 1
        		 #wget -c -t3 -T60 -O ${deb_kernel_name} ${deb_kernel_url}
         	#if [ $? -ne 0 ]; then
-            	#	echo -e "[${red}´íÎó${plain}] ÏÂÔØ${deb_kernel_name}Ê§°Ü£¬Çë¼ì²é¡£"
+            	#	echo -e "[${red}é”™è¯¯${plain}] ä¸‹è½½${deb_kernel_name}å¤±è´¥ï¼Œè¯·æ£€æŸ¥ã€‚"
             	#	exit 1
        		#fi
         	#dpkg -i ${deb_kernel_name}
@@ -127,12 +127,12 @@ install_bbr() {
 		wget ${kernel_ubuntu_url}
 		if [ $? -ne 0 ]
 		then
-			echo -e "[${red}´íÎó${plain}] ÏÂÔØÄÚºËÊ§°Ü£¬Çë¼ì²é¡£"
+			echo -e "[${red}é”™è¯¯${plain}] ä¸‹è½½å†…æ ¸å¤±è´¥ï¼Œè¯·æ£€æŸ¥ã€‚"
 			exit 1
 		fi
 		dpkg -i ${kernel_ubuntu_file}
     	else
-       	 	echo -e "[${red}´íÎó${plain}] ½Å±¾²»Ö§³Ö¸Ã²Ù×÷ÏµÍ³£¬ÇëĞŞ¸ÄÏµÍ³ÎªCentOS/Debian/Ubuntu¡£"
+       	 	echo -e "[${red}é”™è¯¯${plain}] è„šæœ¬ä¸æ”¯æŒè¯¥æ“ä½œç³»ç»Ÿï¼Œè¯·ä¿®æ”¹ç³»ç»Ÿä¸ºCentOS/Debian/Ubuntuã€‚"
         	exit 1
     	fi
 
@@ -168,7 +168,7 @@ check_os_() {
                 os='centos'
                 ;;
                 *)
-                echo -e "[${red}´íÎó${plain}] ±¾½Å±¾ÔİÊ±Ö»Ö§³ÖCentos/Ubuntu/DebianÏµÍ³£¬ÈçĞèÓÃ±¾½Å±¾£¬ÇëĞŞ¸ÄÏµÍ³ÀàĞÍ"
+                echo -e "[${red}é”™è¯¯${plain}] æœ¬è„šæœ¬æš‚æ—¶åªæ”¯æŒCentos/Ubuntu/Debianç³»ç»Ÿï¼Œå¦‚éœ€ç”¨æœ¬è„šæœ¬ï¼Œè¯·ä¿®æ”¹ç³»ç»Ÿç±»å‹"
                 exit 1
                 ;;
         esac
@@ -224,7 +224,7 @@ sysctl_config() {
 
 install_elrepo() {
     if centosversion 5; then
-        echo -e "[${red}´íÎó${plain}] ½Å±¾²»Ö§³ÖCentOS 5¡£"
+        echo -e "[${red}é”™è¯¯${plain}] è„šæœ¬ä¸æ”¯æŒCentOS 5ã€‚"
         exit 1
     fi
 
@@ -237,7 +237,7 @@ install_elrepo() {
     fi
 
     if [ ! -f /etc/yum.repos.d/elrepo.repo ]; then
-        echo -e "[${red}´íÎó${plain}] °²×°elrepoÊ§°Ü£¬Çë¼ì²é¡£"
+        echo -e "[${red}é”™è¯¯${plain}] å®‰è£…elrepoå¤±è´¥ï¼Œè¯·æ£€æŸ¥ã€‚"
         exit 1
     fi
 }
@@ -287,13 +287,13 @@ install_config() {
     if [[ x"${os}" == x"centos" ]]; then
         if centosversion 6; then
             if [ ! -f "/boot/grub/grub.conf" ]; then
-                echo -e "[${red}´íÎó${plain}] Ã»ÓĞÕÒµ½/boot/grub/grub.confÎÄ¼ş¡£"
+                echo -e "[${red}é”™è¯¯${plain}] æ²¡æœ‰æ‰¾åˆ°/boot/grub/grub.confæ–‡ä»¶ã€‚"
                 exit 1
             fi
             sed -i 's/^default=.*/default=0/g' /boot/grub/grub.conf
         elif centosversion 7; then
             if [ ! -f "/boot/grub2/grub.cfg" ]; then
-                echo -e "[${red}´íÎó${plain}] Ã»ÓĞÕÒµ½/boot/grub2/grub.cfgÎÄ¼ş¡£"
+                echo -e "[${red}é”™è¯¯${plain}] æ²¡æœ‰æ‰¾åˆ°/boot/grub2/grub.cfgæ–‡ä»¶ã€‚"
                 exit 1
             fi
             grub2-set-default 0
@@ -305,12 +305,12 @@ install_config() {
 
 reboot_os() {
     echo
-    echo -e "[${green}ÌáÊ¾${plain}] ÏµÍ³ĞèÒªÖØÆôBBR²ÅÄÜÉúĞ§¡£"
-    read -p "ÊÇ·ñÁ¢ÂíÖØÆô [y/n]" is_reboot
+    echo -e "[${green}æç¤º${plain}] ç³»ç»Ÿéœ€è¦é‡å¯BBRæ‰èƒ½ç”Ÿæ•ˆã€‚"
+    read -p "æ˜¯å¦ç«‹é©¬é‡å¯ [y/n]" is_reboot
     if [[ ${is_reboot} == "y" || ${is_reboot} == "Y" ]]; then
         reboot
     else
-        echo -e "[${green}ÌáÊ¾${plain}] È¡ÏûÖØÆô¡£Æä×ÔĞĞÖ´ĞĞrebootÃüÁî¡£"
+        echo -e "[${green}æç¤º${plain}] å–æ¶ˆé‡å¯ã€‚å…¶è‡ªè¡Œæ‰§è¡Œrebootå‘½ä»¤ã€‚"
         exit 0
     fi
 }
@@ -318,12 +318,12 @@ reboot_os() {
 download_files() {
         if ! wget --no-check-certificate -O ${libsodium_file}.tar.gz ${libsodium_url}
         then
-                echo -e "[${red}´íÎó${plain}] ÏÂÔØ${libsodium_file}.tar.gzÊ§°Ü!"
+                echo -e "[${red}é”™è¯¯${plain}] ä¸‹è½½${libsodium_file}.tar.gzå¤±è´¥!"
                 exit 1
         fi
         if ! wget --no-check-certificate -O shadowsocks-master.zip https://github.com/shadowsocks/shadowsocks/archive/master.zip
         then
-                echo -e "[${red}´íÎó${plain}] shadowsocks°²×°°üÎÄ¼şÏÂÔØÊ§°Ü£¡"
+                echo -e "[${red}é”™è¯¯${plain}] shadowsockså®‰è£…åŒ…æ–‡ä»¶ä¸‹è½½å¤±è´¥ï¼"
                 exit 1
         fi
 }
@@ -344,7 +344,7 @@ EOF
 }
 
 firewall_set(){
-    echo -e "[${green}ĞÅÏ¢${plain}] ÕıÔÚÉèÖÃ·À»ğÇ½..."
+    echo -e "[${green}ä¿¡æ¯${plain}] æ­£åœ¨è®¾ç½®é˜²ç«å¢™..."
     if centosversion 6; then
         /etc/init.d/iptables status > /dev/null 2>&1
         if [ $? -eq 0 ]; then
@@ -355,10 +355,10 @@ firewall_set(){
                 /etc/init.d/iptables save
                 /etc/init.d/iptables restart
             else
-                echo -e "[${green}ĞÅÏ¢${plain}] port ${port}ÒÑ¾­¿ª·Å¡£"
+                echo -e "[${green}ä¿¡æ¯${plain}] port ${port}å·²ç»å¼€æ”¾ã€‚"
             fi
         else
-            echo -e "[${yellow}¾¯¸æ${plain}] ·À»ğÇ½£¨iptables£©ºÃÏñÒÑ¾­Í£Ö¹»òÃ»ÓĞ°²×°£¬ÈçÓĞĞèÒªÇëÊÖ¶¯¹Ø±Õ·À»ğÇ½¡£"
+            echo -e "[${yellow}è­¦å‘Š${plain}] é˜²ç«å¢™ï¼ˆiptablesï¼‰å¥½åƒå·²ç»åœæ­¢æˆ–æ²¡æœ‰å®‰è£…ï¼Œå¦‚æœ‰éœ€è¦è¯·æ‰‹åŠ¨å…³é—­é˜²ç«å¢™ã€‚"
         fi
     elif centosversion 7; then
         systemctl status firewalld > /dev/null 2>&1
@@ -367,10 +367,10 @@ firewall_set(){
             firewall-cmd --permanent --zone=public --add-port=${port}/udp
             firewall-cmd --reload
         else
-            echo -e "[${yellow}¾¯¸æ${plain}] ·À»ğÇ½£¨iptables£©ºÃÏñÒÑ¾­Í£Ö¹»òÃ»ÓĞ°²×°£¬ÈçÓĞĞèÒªÇëÊÖ¶¯¹Ø±Õ·À»ğÇ½¡£"
+            echo -e "[${yellow}è­¦å‘Š${plain}] é˜²ç«å¢™ï¼ˆiptablesï¼‰å¥½åƒå·²ç»åœæ­¢æˆ–æ²¡æœ‰å®‰è£…ï¼Œå¦‚æœ‰éœ€è¦è¯·æ‰‹åŠ¨å…³é—­é˜²ç«å¢™ã€‚"
         fi
     fi
-    echo -e "[${green}ĞÅÏ¢${plain}] ·À»ğÇ½ÉèÖÃ³É¹¦¡£"
+    echo -e "[${green}ä¿¡æ¯${plain}] é˜²ç«å¢™è®¾ç½®æˆåŠŸã€‚"
 }
 
 centosversion(){
@@ -406,7 +406,7 @@ install() {
                 ./configure --prefix=/usr && make && make install
                 if [ $? -ne 0 ] 
                 then 
-                        echo -e "[${red}´íÎó${plain}] libsodium°²×°Ê§°Ü!"
+                        echo -e "[${red}é”™è¯¯${plain}] libsodiumå®‰è£…å¤±è´¥!"
                         cleanup
                 exit 1  
                 fi
@@ -417,7 +417,7 @@ install() {
         unzip -q shadowsocks-master.zip
         if [ $? -ne 0 ]
         then 
-                echo -e "[${red}´íÎó${plain}] ½âÑ¹ËõÊ§°Ü£¬Çë¼ì²éunzipÃüÁî"
+                echo -e "[${red}é”™è¯¯${plain}] è§£å‹ç¼©å¤±è´¥ï¼Œè¯·æ£€æŸ¥unzipå‘½ä»¤"
                 cleanup
                 exit 1
         fi      
@@ -438,15 +438,15 @@ install() {
                 esac            
                 ssserver -c /etc/shadowsocks.json -d start
         else    
-                echo -e "[${red}´íÎó${plain}] ss·şÎñÆ÷°²×°Ê§°Ü£¬ÇëÁªÏµflyzyĞ¡Õ¾£¨https://www.flyzy2005.com£©"
+                echo -e "[${red}é”™è¯¯${plain}] ssæœåŠ¡å™¨å®‰è£…å¤±è´¥ï¼Œè¯·è”ç³»flyzyå°ç«™ï¼ˆhttps://www.flyzy2005.comï¼‰"
                 cleanup
                 exit 1
         fi      
-        echo -e "[${green}³É¹¦${plain}] °²×°³É¹¦¾¡Çé³åÀË£¡"
-        echo -e "ÄãµÄ·şÎñÆ÷µØÖ·£¨IP£©£º\033[41;37m $(get_ip) \033[0m"
-        echo -e "ÄãµÄÃÜÂë            £º\033[41;37m ${password} \033[0m"
-        echo -e "ÄãµÄ¶Ë¿Ú            £º\033[41;37m ${port} \033[0m"
-        echo -e "ÄãµÄ¼ÓÃÜ·½Ê½        £º\033[41;37m aes-256-cfb \033[0m"                  
+        echo -e "[${green}æˆåŠŸ${plain}] å®‰è£…æˆåŠŸå°½æƒ…å†²æµªï¼"
+        echo -e "ä½ çš„æœåŠ¡å™¨åœ°å€ï¼ˆIPï¼‰ï¼š\033[41;37m $(get_ip) \033[0m"
+        echo -e "ä½ çš„å¯†ç             ï¼š\033[41;37m ${password} \033[0m"
+        echo -e "ä½ çš„ç«¯å£            ï¼š\033[41;37m ${port} \033[0m"
+        echo -e "ä½ çš„åŠ å¯†æ–¹å¼        ï¼š\033[41;37m aes-256-cfb \033[0m"                  
 }
 
 cleanup() {
@@ -478,7 +478,7 @@ case $1 in
 esac
 
 if [ "$EUID" -ne 0 ]; then
-	echo -e "[${red}´íÎó${plain}] ±ØĞèÒÔrootÉí·İÔËĞĞ£¬ÇëÊ¹ÓÃsudoÃüÁî"
+	echo -e "[${red}é”™è¯¯${plain}] å¿…éœ€ä»¥rootèº«ä»½è¿è¡Œï¼Œè¯·ä½¿ç”¨sudoå‘½ä»¤"
 	exit 1;
 fi
 

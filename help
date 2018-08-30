@@ -1,15 +1,15 @@
-ÉùÃ÷£º
-    ´î½¨ss/ssr·şÎñ+¿ªÆôbbr¼ÓËÙ
-ÓÃ·¨£º
-    ÏÔÊ¾°æ±¾£º
+å£°æ˜ï¼š
+    æ­å»ºss/ssræœåŠ¡+å¼€å¯bbråŠ é€Ÿ
+ç”¨æ³•ï¼š
+    æ˜¾ç¤ºç‰ˆæœ¬ï¼š
         ss-fly.sh -v|v|version
-    ÏÔÊ¾°ïÖú£º
+    æ˜¾ç¤ºå¸®åŠ©ï¼š
         ss-fly.sh [-h|h|help]
-    Ò»¼ü°²×°ss:
+    ä¸€é”®å®‰è£…ss:
         ss-fly.sh -i|i|install
-    Ò»¼üĞ¶ÔØss£º
+    ä¸€é”®å¸è½½ssï¼š
 	ss-fly.sh -uninstall
-    Ò»¼ü°²×°ssr:
+    ä¸€é”®å®‰è£…ssr:
 	ss-fly.sh -ssr
-    °²×°BBR¼ÓËÙ£º
+    å®‰è£…BBRåŠ é€Ÿï¼š
         ss-fly.sh -bbr
